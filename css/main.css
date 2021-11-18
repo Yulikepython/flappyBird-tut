@@ -37,7 +37,7 @@ body {
 }
 
 .bird {
-  --bird-top: 50;
+  --bird-top: -1000;
   position: absolute;
   background-color: #dfbf20;
   width: 60px;
