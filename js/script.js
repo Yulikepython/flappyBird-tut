@@ -1,4 +1,6 @@
 import {updateBird, setupBird, getBirdRect} from "./bird.js"
+import {updatePipes, setupPipes, getPassedPipesCount} from "./pipe.js"
+
 
 document.addEventListener("keypress", handleStart, {once: true});
 const title = document.querySelector("[data-title")
@@ -15,6 +17,7 @@ function updateLoop(time){
     }
     const delta = time - lastTime
     updateBird(delta)
+    updatePipes(delta)
     if (checkLose()) return handleLose()
     lastTime = time
     window.requestAnimationFrame(updateLoop)
@@ -32,6 +35,7 @@ function handleStart(){
     const title = document.querySelector("[data-title]")
     title.classList.add("hide")
     setupBird()
+    setupPipes()
     lastTime = null
     window.requestAnimationFrame(updateLoop)
 }
@@ -40,7 +44,7 @@ function handleLose(){
     setTimeout(()=>{
         title.classList.remove("hide")
         subTitle.classList.remove("hide")
-        subTitle.textContent = "0 Pipes"
+        subTitle.textContent = `${getPassedPipesCount()} Pipes`
         document.addEventListener("keypress", handleStart, {once: true})
     }, 100)
 }
